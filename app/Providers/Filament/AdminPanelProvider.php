@@ -52,9 +52,8 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
                 'auth',
-                sprintf('role:%s|%s',
+                sprintf('role:%s',
                     RolesEnum::Admin->value,
-                    RolesEnum::Moderator->value
                 )
             ])
             //->authMiddleware([
