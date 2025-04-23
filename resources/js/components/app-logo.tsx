@@ -7,7 +7,7 @@ export default function AppLogo() {
                 <AppLogoIcon className="fill-current size-5 text-white dark:text-black" />
             </div>
             <div className="flex-1 grid ml-1 text-sm text-left">
-                <span className="mb-0.5 font-semibold truncate leading-none">Comic Mania</span>
+                <span className="mb-0.5 lg:p-2 font-semibold truncate leading-none">Elementor</span>
             </div>
         </>
     );

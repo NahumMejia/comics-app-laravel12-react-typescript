@@ -1,53 +1,35 @@
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { Heart, MessageCircleMore, Search } from 'lucide-react';
+import AppLayout from '@/layouts/app-layout';
+import { type BreadcrumbItem } from '@/types';
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Dashboard',
+        href: '/dashboard',
+    },
+];
 
 export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
 
     return (
-        <>
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Welcome">
                 <link rel="preconnect" href="https://fonts.bunny.net" />
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
             </Head>
 
             <div className="flex flex-col bg-[#FDFDFC] dark:bg-[#0a0a0a] min-h-screen">
-                <nav className="flex justify-end px-6 md:px-10 py-4">
-                    {auth.user ? (
-                        <Link
-                            href={route('dashboard')}
-                            className="bg-[#1b1b18] dark:bg-[#EDEDEC] hover:opacity-90 px-5 py-1.5 rounded-md text-white dark:text-[#0a0a0a] text-sm transition"
-                        >
-                            Dashboard
-                        </Link>
-                    ) : (
-                        <div className="flex gap-4">
-                            <Link
-                                href={route('login')}
-                                className="hover:bg-[#1b1b18] dark:hover:bg-[#EDEDEC] px-5 py-1.5 border border-[#1b1b18] dark:border-[#EDEDEC] rounded-md text-[#1b1b18] hover:text-white dark:hover:text-[#0a0a0a] dark:text-[#EDEDEC] text-sm transition"
-                            >
-                                Log In
-                            </Link>
-                            <Link
-                                href={route('register')}
-                                className="bg-[#1b1b18] dark:bg-[#EDEDEC] hover:opacity-90 px-5 py-1.5 rounded-md text-white dark:text-[#0a0a0a] text-sm transition"
-                            >
-                                Register
-                            </Link>
-                        </div>
-                    )}
-                </nav>
-
                 <main className="flex flex-col flex-1 justify-center items-center px-6 py-12">
                     <div className="mb-12 w-full max-w-3xl text-center">
                         <div className="inline-block mb-6">
                             <h1 className="font-bold text-[#1b1b18] dark:text-[#EDEDEC] text-4xl md:text-5xl tracking-tight">
-                                Comic Mania
+                                Elementor Comics
                             </h1>
                         </div>
                         <p className="mx-auto max-w-lg text-[#555] dark:text-[#aaa] text-lg md:text-xl">
-                            Welcome to Comic Mania, where you can ask your favorite comic and we get it.
+                            Welcome to Elementor Comics, where you can see your favorite comics.
                         </p>
                     </div>
 
@@ -104,6 +86,6 @@ export default function Welcome() {
                     </div>
                 </main>
             </div>
-        </>
+        </AppLayout>
     );
 }
