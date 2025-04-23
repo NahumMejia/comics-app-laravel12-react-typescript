@@ -7,6 +7,7 @@ import { Link } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
 import AppLogo from './app-logo';
 
+//Icons for the sidebar powered by lucide-react
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
@@ -17,14 +18,9 @@ const mainNavItems: NavItem[] = [
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
+        title: 'Repository for this project',
+        href: 'https://github.com/NahumMejia/comics-app-laravel12-react-typescript',
         icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits',
-        icon: BookOpen,
     },
 ];
 
