@@ -74,10 +74,7 @@ class AuthorResource extends Resource
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('slug')
-                    ->sortable()
-                    ->searchable(),
-                TextColumn::make('description')
+                TextColumn::make('bio')
                     ->limit(50)
                     ->wrap()
                     ->html(),                

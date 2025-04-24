@@ -51,10 +51,6 @@ class TagResource extends Resource
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('slug')
-                    ->sortable()
-                    ->searchable()
-                    ->label('Slug'),
             ])
             ->filters([
                 //
