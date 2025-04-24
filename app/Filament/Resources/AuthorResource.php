@@ -2,33 +2,30 @@
 
 namespace App\Filament\Resources;
 
-use App\Enum\RolesEnum;
-use App\Filament\Resources\CategoryResource\Pages;
-use App\Filament\Resources\CategoryResource\Pages\CategoryImage;
-use App\Filament\Resources\CategoryResource\Pages\EditCategory;
-use App\Filament\Resources\CategoryResource\RelationManagers;
-use App\Models\Category;
-use Filament\Facades\Filament;
+use App\Filament\Resources\AuthorResource\Pages;
+use App\Filament\Resources\AuthorResource\RelationManagers;
+use App\Filament\Resources\AuthorResource\Pages\AuthorImage;
+use App\Filament\Resources\AuthorResource\Pages\EditAuthor;
+use App\Models\Author;
+use Filament\Pages\SubNavigationPosition;
 use Filament\Forms;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\Page;
-use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use PhpParser\Node\Stmt\Label;
-use Illuminate\Support\Str;
 
-class CategoryResource extends Resource
+class AuthorResource extends Resource
 {
-    protected static ?string $model = Category::class;
+    protected static ?string $model = Author::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
+    protected static ?string $navigationIcon = 'heroicon-c-user';
 
     protected static subNavigationPosition $subNavigationPosition = SubNavigationPosition::End;
 
@@ -37,18 +34,19 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->required()
-                    ->label('Category Name')
-                    ->placeholder('Default Category Name')
-                    ->maxLength(100)
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(function(string $operation, $state, callable $set) {
-                        $set('slug', Str::slug($state));
-                    }),
+                ->required()
+                ->label('Author Name')
+                ->placeholder('Author Name')
+                ->maxLength(100)
+                ->live(onBlur: true)
+                ->afterStateUpdated(function(string $operation, $state, callable $set) {
+                    $set('slug', Str::slug($state));
+                }),
                 TextInput::make('slug')
                     ->required()
+                    ->placeholder('slug')
                     ->label('Slug'),
-                RichEditor::make('description')
+                RichEditor::make('bio')
                     ->required()
                     ->toolbarButtons([
                         'blockquote',
@@ -82,9 +80,9 @@ class CategoryResource extends Resource
                 TextColumn::make('description')
                     ->limit(50)
                     ->wrap()
-                    ->html(),
+                    ->html(),                
             ])
-                ->defaultSort('created_at', 'desc')
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
@@ -109,23 +107,17 @@ class CategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
-            'create' => Pages\CreateCategory::route('/create'),
-            'edit' => Pages\EditCategory::route('/{record}/edit'),
-            'image' => Pages\CategoryImage::route('/{record}/image'),
+            'index' => Pages\ListAuthors::route('/'),
+            'create' => Pages\CreateAuthor::route('/create'),
+            'edit' => Pages\EditAuthor::route('/{record}/edit'),
+            'image' => Pages\AuthorImage::route('/{record}/image'),
         ];
     }
 
     public static function getRecordSubNavigation(Page $page): array {
         return $page->generateNavigationItems([
-            EditCategory::class,
-            CategoryImage::class,
+            EditAuthor::class,
+            AuthorImage::class,
         ]);
-    }
-
-    public static function canViewAny(): bool
-    {
-        $user = Filament::auth()->user();
-        return $user && $user->hasRole(RolesEnum::Admin);
     }
 }
