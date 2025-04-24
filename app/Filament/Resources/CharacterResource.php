@@ -7,6 +7,7 @@ use App\Filament\Resources\CharacterResource\RelationManagers;
 use App\Models\Character;
 use App\Filament\Resources\CharacterResource\Pages\CharacterImage;
 use App\Filament\Resources\CharacterResource\Pages\EditCharacter;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Forms;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
@@ -75,9 +76,14 @@ class CharacterResource extends Resource
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('description')
-                    ->limit(50)
+                    ->label('Description')
+                    ->limit(100)
                     ->wrap()
-                    ->html(), 
+                    ->html(),
+                    SpatieMediaLibraryImageColumn::make('image')
+                    ->height(80)
+                    ->width(80)
+                    ->label('Image')
             ])
             ->filters([
                 //

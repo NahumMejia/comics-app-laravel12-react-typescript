@@ -17,6 +17,7 @@ use Filament\Pages\Page;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -77,9 +78,12 @@ class CategoryResource extends Resource
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('description')
-                    ->limit(50)
+                    ->limit(60)
                     ->wrap()
                     ->html(),
+                SpatieMediaLibraryImageColumn::make('image')
+                    ->width(80)
+                    ->label('Image')  
             ])
                 ->defaultSort('created_at', 'desc')
             ->filters([

@@ -15,6 +15,7 @@ use Filament\Forms\Form;
 use Filament\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
@@ -77,7 +78,11 @@ class AuthorResource extends Resource
                 TextColumn::make('bio')
                     ->limit(50)
                     ->wrap()
-                    ->html(),                
+                    ->html(),
+                SpatieMediaLibraryImageColumn::make('image')
+                    ->height(80)
+                    ->width(80)
+                    ->label('Image')           
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
