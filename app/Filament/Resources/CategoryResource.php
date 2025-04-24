@@ -4,12 +4,18 @@ namespace App\Filament\Resources;
 
 use App\Enum\RolesEnum;
 use App\Filament\Resources\CategoryResource\Pages;
+use App\Filament\Resources\CategoryResource\Pages\CategoryImage;
+use App\Filament\Resources\CategoryResource\Pages\CategoryImages;
+use App\Filament\Resources\CategoryResource\Pages\EditCategory;
 use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
 use Filament\Facades\Filament;
 use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Pages\Page;
+use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -24,6 +30,8 @@ class CategoryResource extends Resource
     protected static ?string $model = Category::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
+
+    protected static subNavigationPosition $subNavigationPosition = SubNavigationPosition::End;
 
     public static function form(Form $form): Form
     {
@@ -41,10 +49,25 @@ class CategoryResource extends Resource
                 TextInput::make('slug')
                     ->required()
                     ->label('Slug'),
-                TextInput::make('description')
-                    ->label('Description (Optional)')
-                    ->maxLength(255)
-                    ->placeholder('Category description'),
+                RichEditor::make('description')
+                    ->required()
+                    ->toolbarButtons([
+                        'blockquote',
+                        'bold',
+                        'bulletList',
+                        'h2',
+                        'h3',
+                        'italic',
+                        'link',
+                        'orderedList',
+                        'redo',
+                        'strike',
+                        'underline',
+                        'undo',
+                        'table',
+                    ])
+                    ->columnSpan('2'),
+
             ]);
     }
 
@@ -91,7 +114,15 @@ class CategoryResource extends Resource
             'index' => Pages\ListCategories::route('/'),
             'create' => Pages\CreateCategory::route('/create'),
             'edit' => Pages\EditCategory::route('/{record}/edit'),
+            'images' => Pages\CategoryImage::route('/{record}/image'),
         ];
+    }
+
+    public static function getRecordSubNavigation(Page $page): array {
+        return $page->generateNavigationItems([
+            EditCategory::class,
+            CategoryImage::class,
+        ]);
     }
 
     public static function canViewAny(): bool
