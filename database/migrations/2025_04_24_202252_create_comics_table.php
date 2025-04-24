@@ -20,8 +20,6 @@ return new class extends Migration
             $table->date('published_at')->nullable();
             //Foreigns keys
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->foreignId('author_id')->constrained('authors')->onDelete('cascade');
-            $table->foreignId('tags_id')->constrained('tags')->onDelete('cascade');
             $table->timestamps();
         });
     }
