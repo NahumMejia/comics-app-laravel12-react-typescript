@@ -3,27 +3,26 @@
 namespace App\Filament\Resources;
 
 use App\Enum\RolesEnum;
-use App\Filament\Resources\CategoryResource\Pages;
-use App\Filament\Resources\CategoryResource\RelationManagers;
-use App\Models\Category;
+use App\Filament\Resources\TagResource\Pages;
+use App\Filament\Resources\TagResource\RelationManagers;
+use App\Models\Tag;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use PhpParser\Node\Stmt\Label;
-use Illuminate\Support\Str;
 
-class CategoryResource extends Resource
+class TagResource extends Resource
 {
-    protected static ?string $model = Category::class;
+    protected static ?string $model = Tag::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
+    protected static ?string $navigationIcon = 'heroicon-o-hashtag';
 
     public static function form(Form $form): Form
     {
@@ -31,8 +30,8 @@ class CategoryResource extends Resource
             ->schema([
                 TextInput::make('name')
                     ->required()
-                    ->label('Category Name')
-                    ->placeholder('Default Category Name')
+                    ->label('Tag Name')
+                    ->placeholder('Default Tag Name')
                     ->maxLength(100)
                     ->live(onBlur: true)
                     ->afterStateUpdated(function(string $operation, $state, callable $set) {
@@ -40,11 +39,8 @@ class CategoryResource extends Resource
                     }),
                 TextInput::make('slug')
                     ->required()
+                    ->placeholder(placeholder: 'Slug')
                     ->label('Slug'),
-                TextInput::make('description')
-                    ->label('Description (Optional)')
-                    ->maxLength(255)
-                    ->placeholder('Category description'),
             ]);
     }
 
@@ -57,13 +53,9 @@ class CategoryResource extends Resource
                     ->searchable(),
                 TextColumn::make('slug')
                     ->sortable()
-                    ->searchable(),
-                TextColumn::make('description')
-                    ->limit(50)
-                    ->wrap()
-                    ->html(),
+                    ->searchable()
+                    ->label('Slug'),
             ])
-                ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
@@ -73,7 +65,7 @@ class CategoryResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -88,12 +80,11 @@ class CategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
-            'create' => Pages\CreateCategory::route('/create'),
-            'edit' => Pages\EditCategory::route('/{record}/edit'),
+            'index' => Pages\ListTags::route('/'),
+            'create' => Pages\CreateTag::route('/create'),
+            'edit' => Pages\EditTag::route('/{record}/edit'),
         ];
     }
-
     public static function canViewAny(): bool
     {
         $user = Filament::auth()->user();
