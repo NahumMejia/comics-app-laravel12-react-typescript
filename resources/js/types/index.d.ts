@@ -41,3 +41,23 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export type Comic = {
+    id: number;
+    title: string;
+    slug: string;
+    synopsis: string;
+    cover: string;
+    authors: {
+        id: number;
+        name: string;
+    }[];
+    category: {
+        id: number;
+        name: string;
+    };
+};
+
+export type PaginationProps<T>= {
+data:Array<T>;
+}
