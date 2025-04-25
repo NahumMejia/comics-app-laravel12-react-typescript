@@ -50,7 +50,6 @@ class TagResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->sortable()
-                    ->alignCenter()
                     ->searchable(),
             ])
             ->filters([

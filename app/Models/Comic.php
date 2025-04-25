@@ -9,7 +9,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Comic extends Model implements HasMedia
 {
     use InteractsWithMedia;
-
+    
     public function authors()
     {
         return $this->belongsToMany(Author::class, 'author_comic');
