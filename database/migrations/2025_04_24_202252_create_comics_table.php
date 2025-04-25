@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('comics', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('synopsis');
-            $table->string('table');
+            $table->string('title')->unique();
+            $table->string('slug')->unique();
+            $table->text('synopsis')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->date('published_at')->nullable();
             //Foreigns keys

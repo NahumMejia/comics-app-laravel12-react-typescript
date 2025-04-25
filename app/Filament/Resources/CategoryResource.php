@@ -11,6 +11,7 @@ use App\Models\Category;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\Page;
@@ -67,6 +68,15 @@ class CategoryResource extends Resource
                         'table',
                     ])
                     ->columnSpan('2'),
+                    SpatieMediaLibraryFileUpload::make('image')
+                    ->label(label: 'Category Header Image')
+                    ->image()
+                    ->panelLayout('grid')
+                    ->openable()
+                    ->reorderable()
+                    ->appendFiles()
+                    ->preserveFilenames()
+                    ->columnSpan('full'),
             ]);
     }
 
@@ -82,8 +92,9 @@ class CategoryResource extends Resource
                     ->wrap()
                     ->html(),
                 SpatieMediaLibraryImageColumn::make('image')
+                    ->alignCenter()
                     ->width(80)
-                    ->label('Image')  
+                    ->label('Category Header Image')  
             ])
                 ->defaultSort('created_at', 'desc')
             ->filters([
@@ -113,14 +124,12 @@ class CategoryResource extends Resource
             'index' => Pages\ListCategories::route('/'),
             'create' => Pages\CreateCategory::route('/create'),
             'edit' => Pages\EditCategory::route('/{record}/edit'),
-            'image' => Pages\CategoryImage::route('/{record}/image'),
         ];
     }
 
     public static function getRecordSubNavigation(Page $page): array {
         return $page->generateNavigationItems([
             EditCategory::class,
-            CategoryImage::class,
         ]);
     }
 

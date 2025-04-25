@@ -10,6 +10,7 @@ use App\Filament\Resources\CharacterResource\Pages\EditCharacter;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Forms;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\Page;
@@ -65,6 +66,16 @@ class CharacterResource extends Resource
                         'table',
                     ])
                     ->columnSpan('2'),
+                SpatieMediaLibraryFileUpload::make('image')
+                    ->required()
+                    ->label(label: 'Character Header Image')
+                    ->image()
+                    ->panelLayout('grid')
+                    ->openable()
+                    ->reorderable()
+                    ->appendFiles()
+                    ->preserveFilenames()
+                    ->columnSpan('full'),
             ]);
     }
 
@@ -80,10 +91,10 @@ class CharacterResource extends Resource
                     ->limit(100)
                     ->wrap()
                     ->html(),
-                    SpatieMediaLibraryImageColumn::make('image')
-                    ->height(80)
+                SpatieMediaLibraryImageColumn::make('image')
+                    ->alignCenter()
                     ->width(80)
-                    ->label('Image')
+                    ->label('Character Header Image')
             ])
             ->filters([
                 //
@@ -93,7 +104,7 @@ class CharacterResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -111,14 +122,12 @@ class CharacterResource extends Resource
             'index' => Pages\ListCharacters::route('/'),
             'create' => Pages\CreateCharacter::route('/create'),
             'edit' => Pages\EditCharacter::route('/{record}/edit'),
-            'image' => Pages\CharacterImage::route('/{record}/image'),
         ];
     }
 
     public static function getRecordSubNavigation(Page $page): array {
         return $page->generateNavigationItems([
             EditCharacter::class,
-            CharacterImage::class,
         ]);
     }
 }

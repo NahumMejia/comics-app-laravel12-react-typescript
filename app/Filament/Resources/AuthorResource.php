@@ -10,6 +10,7 @@ use App\Models\Author;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Forms;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\Page;
@@ -65,6 +66,16 @@ class AuthorResource extends Resource
                         'table',
                     ])
                     ->columnSpan('2'),
+                    SpatieMediaLibraryFileUpload::make('image')
+                    ->required()
+                    ->label(label: 'Author Image')
+                    ->image()
+                    ->panelLayout('grid')
+                    ->openable()
+                    ->reorderable()
+                    ->appendFiles()
+                    ->preserveFilenames()
+                    ->columnSpan('full'),
             ]);
     }
 
@@ -112,14 +123,12 @@ class AuthorResource extends Resource
             'index' => Pages\ListAuthors::route('/'),
             'create' => Pages\CreateAuthor::route('/create'),
             'edit' => Pages\EditAuthor::route('/{record}/edit'),
-            'image' => Pages\AuthorImage::route('/{record}/image'),
         ];
     }
 
     public static function getRecordSubNavigation(Page $page): array {
         return $page->generateNavigationItems([
             EditAuthor::class,
-            AuthorImage::class,
         ]);
     }
 }

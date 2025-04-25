@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Filament\Resources\AuthorResource\Pages;
+namespace App\Filament\Resources\ComicResource\Pages;
 
-use App\Filament\Resources\AuthorResource;
+use App\Filament\Resources\CharacterResource;
 use Filament\Actions;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\EditRecord;
 
-class AuthorImage extends EditRecord
+class ComicImages extends EditRecord
 {
-    protected static string $resource = AuthorResource::class;
+    protected static string $resource = CharacterResource::class;
 
     public function form (Form $form): Form
     {
         return $form
             ->schema([
                 SpatieMediaLibraryFileUpload::make('image')
-                    ->label(label: 'Author Image')
+                    ->label(label: 'Comic Pages')
                     ->image()
                     ->panelLayout('grid')
                     ->openable()

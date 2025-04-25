@@ -29,4 +29,9 @@ class Comic extends Model implements HasMedia
     {
         return $this->belongsTo(Category::class);
     }
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('cover')->singleFile();
+        $this->addMediaCollection('images');
+    }
 }
