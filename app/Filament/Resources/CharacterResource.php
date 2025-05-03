@@ -36,14 +36,14 @@ class CharacterResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                ->required()
-                ->label('Character Name')
-                ->placeholder('Character Name')
-                ->maxLength(100)
-                ->live(onBlur: true)
-                ->afterStateUpdated(function(string $operation, $state, callable $set) {
-                    $set('slug', Str::slug($state));
-                }),
+                    ->required()
+                    ->label('Character Name')
+                    ->placeholder('Character Name')
+                    ->maxLength(100)
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (string $operation, $state, callable $set) {
+                        $set('slug', Str::slug($state));
+                    }),
                 TextInput::make('slug')
                     ->required()
                     ->placeholder('slug')
@@ -67,7 +67,6 @@ class CharacterResource extends Resource
                     ])
                     ->columnSpan('2'),
                 SpatieMediaLibraryFileUpload::make('image')
-                    ->required()
                     ->label(label: 'Character Header Image')
                     ->image()
                     ->panelLayout('grid')
@@ -104,7 +103,7 @@ class CharacterResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -125,7 +124,8 @@ class CharacterResource extends Resource
         ];
     }
 
-    public static function getRecordSubNavigation(Page $page): array {
+    public static function getRecordSubNavigation(Page $page): array
+    {
         return $page->generateNavigationItems([
             EditCharacter::class,
         ]);

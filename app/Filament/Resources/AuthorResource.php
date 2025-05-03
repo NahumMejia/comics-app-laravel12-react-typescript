@@ -36,14 +36,14 @@ class AuthorResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                ->required()
-                ->label('Author Name')
-                ->placeholder('Author Name')
-                ->maxLength(100)
-                ->live(onBlur: true)
-                ->afterStateUpdated(function(string $operation, $state, callable $set) {
-                    $set('slug', Str::slug($state));
-                }),
+                    ->required()
+                    ->label('Author Name')
+                    ->placeholder('Author Name')
+                    ->maxLength(100)
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (string $operation, $state, callable $set) {
+                        $set('slug', Str::slug($state));
+                    }),
                 TextInput::make('slug')
                     ->required()
                     ->placeholder('slug')
@@ -66,16 +66,6 @@ class AuthorResource extends Resource
                         'table',
                     ])
                     ->columnSpan('2'),
-                    SpatieMediaLibraryFileUpload::make('image')
-                    ->required()
-                    ->label(label: 'Author Image')
-                    ->image()
-                    ->panelLayout('grid')
-                    ->openable()
-                    ->reorderable()
-                    ->appendFiles()
-                    ->preserveFilenames()
-                    ->columnSpan('full'),
             ]);
     }
 
@@ -90,10 +80,6 @@ class AuthorResource extends Resource
                     ->limit(50)
                     ->wrap()
                     ->html(),
-                SpatieMediaLibraryImageColumn::make('image')
-                    ->height(80)
-                    ->width(80)
-                    ->label('Image')           
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
@@ -126,7 +112,8 @@ class AuthorResource extends Resource
         ];
     }
 
-    public static function getRecordSubNavigation(Page $page): array {
+    public static function getRecordSubNavigation(Page $page): array
+    {
         return $page->generateNavigationItems([
             EditAuthor::class,
         ]);

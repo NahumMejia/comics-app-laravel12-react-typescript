@@ -44,7 +44,7 @@ class CategoryResource extends Resource
                     ->placeholder('Default Category Name')
                     ->maxLength(100)
                     ->live(onBlur: true)
-                    ->afterStateUpdated(function(string $operation, $state, callable $set) {
+                    ->afterStateUpdated(function (string $operation, $state, callable $set) {
                         $set('slug', Str::slug($state));
                     }),
                 TextInput::make('slug')
@@ -68,15 +68,7 @@ class CategoryResource extends Resource
                         'table',
                     ])
                     ->columnSpan('2'),
-                    SpatieMediaLibraryFileUpload::make('image')
-                    ->label(label: 'Category Header Image')
-                    ->image()
-                    ->panelLayout('grid')
-                    ->openable()
-                    ->reorderable()
-                    ->appendFiles()
-                    ->preserveFilenames()
-                    ->columnSpan('full'),
+
             ]);
     }
 
@@ -91,12 +83,8 @@ class CategoryResource extends Resource
                     ->limit(60)
                     ->wrap()
                     ->html(),
-                SpatieMediaLibraryImageColumn::make('image')
-                    ->alignCenter()
-                    ->width(80)
-                    ->label('Category Header Image')  
             ])
-                ->defaultSort('created_at', 'desc')
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
@@ -127,7 +115,8 @@ class CategoryResource extends Resource
         ];
     }
 
-    public static function getRecordSubNavigation(Page $page): array {
+    public static function getRecordSubNavigation(Page $page): array
+    {
         return $page->generateNavigationItems([
             EditCategory::class,
         ]);
