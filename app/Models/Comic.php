@@ -9,7 +9,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Comic extends Model implements HasMedia
 {
     use InteractsWithMedia;
-    
+
     public function authors()
     {
         return $this->belongsToMany(Author::class, 'author_comic');
@@ -31,7 +31,7 @@ class Comic extends Model implements HasMedia
     }
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('cover')->singleFile();
-        $this->addMediaCollection('images');
+        $this->addMediaCollection('cover')->useDisk('public')->singleFile();
+        $this->addMediaCollection('pages')->useDisk('public');;
     }
 }

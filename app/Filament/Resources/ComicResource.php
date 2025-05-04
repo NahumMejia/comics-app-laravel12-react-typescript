@@ -92,9 +92,9 @@ class ComicResource extends Resource
                     ->appendFiles()
                     ->preserveFilenames()
                     ->columnSpan('full'),
-                SpatieMediaLibraryFileUpload::make('images')
+                SpatieMediaLibraryFileUpload::make('pages')
                     ->required()
-                    ->collection('images')
+                    ->collection('pages')
                     ->label(label: 'Comic Pages')
                     ->multiple()
                     ->image()

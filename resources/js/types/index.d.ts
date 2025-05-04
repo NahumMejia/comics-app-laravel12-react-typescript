@@ -56,8 +56,23 @@ export type Comic = {
         id: number;
         name: string;
     };
+    characters: {
+        id: number;
+        name: string;
+    }[];
+    tags: {
+        id: number;
+        name: string;
+    }[];
+    pages: Page[];
 };
 
-export type PaginationProps<T>= {
-data:Array<T>;
-}
+type Page = {
+    id: number;
+    url: string;
+    name: string;
+};
+
+export type PaginationProps<T> = {
+    data: Array<T>;
+};

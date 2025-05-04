@@ -3,22 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ComicListResource;
+use App\Http\Resources\ComicResource;
 use App\Models\Comic;
 use Illuminate\Http\Request;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Inertia\Inertia;
 
 class ComicController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
-    $comics = Comic::with('media')->get();
+        $comics = Comic::with('media')->get();
 
-    return Inertia::render('dashboard', [
-        'comics' => ComicListResource::collection($comics),
-    ]);
-}
+        return Inertia::render('dashboard', [
+            'comics' => ComicListResource::collection($comics),
+        ]);
+    }
 
-    public function show(Comic $comic){
-        
+
+    public function show(Comic $comic)
+    {
+        return Inertia::render('Comic/Show', [
+            'comic' => (new ComicResource($comic))->resolve(),
+        ]);
     }
 }
