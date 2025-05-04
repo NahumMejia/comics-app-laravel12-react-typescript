@@ -31,74 +31,79 @@ class ComicResource extends Resource
         return $form
             ->schema([
                 TextInput::make('title')
-                ->required()
-                ->label('Comic Name')
-                ->placeholder('Comic Name')
-                ->maxLength(100)
-                ->live(onBlur: true)
-                ->afterStateUpdated(function(string $operation, $state, callable $set) {
-                    $set('slug', Str::slug($state));
-                }),
+                    ->required()
+                    ->label('Comic Name')
+                    ->placeholder('Comic Name')
+                    ->maxLength(100)
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (string $operation, $state, callable $set) {
+                        $set('slug', Str::slug($state));
+                    }),
                 TextInput::make('slug')
                     ->required()
                     ->placeholder('slug')
                     ->label('Slug'),
-            RichEditor::make('synopsis')
-                ->label('Synopsis')
-                ->columnSpanFull()
-                ->disableToolbarButtons([
-                    'attachFiles',
-                    'codeBlock',
-                    'h1',
-                    'h2',
-                    'h3',
-                    'h4',
-                    'h5',
-                    'h6',
-                    'indent',
-                    'link',
-                    'orderedList',
-                    'quote',
-                    'strikeThrough',
-                    'unorderedList',
-                ]),
-            Select::make('authors')
-                ->relationship('authors', 'name')
-                ->multiple()
-                ->preload()
-                ->label('Authors'),
-            Select::make('category_id')
-                ->relationship('category', 'name')
-                ->preload()
-                ->label('Category'),
-            Select::make('tags')
-                ->relationship('tags', 'name')
-                ->multiple()
-                ->preload()
-                ->label('Tags'),
+                RichEditor::make('synopsis')
+                    ->label('Synopsis')
+                    ->columnSpanFull()
+                    ->disableToolbarButtons([
+                        'attachFiles',
+                        'codeBlock',
+                        'h1',
+                        'h2',
+                        'h3',
+                        'h4',
+                        'h5',
+                        'h6',
+                        'indent',
+                        'link',
+                        'orderedList',
+                        'quote',
+                        'strikeThrough',
+                        'unorderedList',
+                    ]),
+                Select::make('authors')
+                    ->relationship('authors', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->label('Authors'),
+                Select::make('category_id')
+                    ->relationship('category', 'name')
+                    ->preload()
+                    ->label('Category'),
+                Select::make('tags')
+                    ->relationship('tags', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->label('Tags'),
+                Select::make('characters')
+                    ->relationship('characters', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->label('Related Characters'),
                 SpatieMediaLibraryFileUpload::make('cover')
-                ->required()
-                ->collection('cover')
-                ->label(label: 'Comic Cover')
-                ->image()
-                ->panelLayout('grid')
-                ->openable()
-                ->reorderable()
-                ->appendFiles()
-                ->preserveFilenames()
-                ->columnSpan('full'),
+                    ->required()
+                    ->collection('cover')
+                    ->label(label: 'Comic Cover')
+                    ->image()
+                    ->panelLayout('grid')
+                    ->openable()
+                    ->reorderable()
+                    ->appendFiles()
+                    ->preserveFilenames()
+                    ->columnSpan('full'),
                 SpatieMediaLibraryFileUpload::make('images')
-                ->required()
-                ->collection('images')
-                ->label(label: 'Comic Pages')
-                ->multiple()
-                ->image()
-                ->panelLayout('grid')
-                ->openable()
-                ->reorderable()
-                ->appendFiles()
-                ->preserveFilenames()
-                ->columnSpan('full'),
+                    ->required()
+                    ->collection('images')
+                    ->label(label: 'Comic Pages')
+                    ->multiple()
+                    ->image()
+                    ->panelLayout('grid')
+                    ->openable()
+                    ->reorderable()
+                    ->appendFiles()
+                    ->preserveFilenames()
+                    ->columnSpan('full'),
             ]);
     }
 
@@ -134,7 +139,7 @@ class ComicResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
