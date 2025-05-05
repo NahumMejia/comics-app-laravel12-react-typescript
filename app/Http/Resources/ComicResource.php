@@ -22,6 +22,7 @@ class ComicResource extends JsonResource
             'tags' => $this->tags->map(function ($tag) {
                 return [
                     'id' => $tag->id,
+                    'slug' => $tag->slug,
                     'name' => $tag->name,
                 ];
             }),
