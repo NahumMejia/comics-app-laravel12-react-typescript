@@ -85,15 +85,8 @@ class CharacterResource extends Resource
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('description')
-                    ->label('Description')
-                    ->limit(100)
-                    ->wrap()
-                    ->html(),
-                SpatieMediaLibraryImageColumn::make('image')
-                    ->alignCenter()
-                    ->width(80)
-                    ->label('Character Header Image')
+                TextColumn::make('slug')
+                    ->label('Slug'),
             ])
             ->filters([
                 //

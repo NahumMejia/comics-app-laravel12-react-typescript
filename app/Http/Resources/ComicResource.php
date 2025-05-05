@@ -36,16 +36,19 @@ class ComicResource extends JsonResource
             'authors' => $this->authors->map(function ($author) {
                 return [
                     'id' => $author->id,
+                    'slug' => $author->slug,
                     'name' => $author->name,
                 ];
             }),
             'category' => [
                 'id' => $this->category->id,
+                'slug' => $this->category->slug,
                 'name' => $this->category->name,
             ],
             'characters' => $this->characters->map(function ($character) {
                 return [
                     'id' => $character->id,
+                    'slug' => $character->slug,
                     'name' => $character->name,
                 ];
             }),

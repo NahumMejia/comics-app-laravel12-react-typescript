@@ -44,6 +44,7 @@ function Show({ comic }: { comic: Comic }) {
             behavior: 'smooth',
         });
     };
+    console.log(comic.characters);
     return (
         <AppLayout breadcrumbs={breadcrumbs.map((b) => (b.title === 'Comics' ? b : { ...b, title: comic.title, href: `/${comic.slug}` }))}>
             <Head title={comic.title} />
@@ -178,12 +179,13 @@ function Show({ comic }: { comic: Comic }) {
                                 </h3>
                                 <div className="space-y-2">
                                     {comic.characters.map((character) => (
-                                        <div
+                                        <Link
                                             key={character.id}
+                                            href={`/characters/${character.slug}`}
                                             className="flex cursor-pointer items-center justify-between rounded-md border border-zinc-300 bg-zinc-100 px-3 py-2 transition-colors hover:bg-zinc-200 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800"
                                         >
                                             <span>{character.name}</span>
-                                        </div>
+                                        </Link>
                                     ))}
                                 </div>
                             </div>

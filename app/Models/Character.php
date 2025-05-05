@@ -9,4 +9,9 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Character extends Model implements HasMedia
 {
     use InteractsWithMedia;
+
+    public function comics()
+    {
+        return $this->belongsToMany(Comic::class);
+    }
 }
