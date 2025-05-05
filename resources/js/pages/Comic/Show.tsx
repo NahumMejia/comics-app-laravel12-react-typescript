@@ -66,9 +66,6 @@ function Show({ comic }: { comic: Comic }) {
                             <h1 className="mb-4 text-4xl font-bold tracking-tight text-black md:text-6xl lg:text-7xl dark:text-white">
                                 {comic.title}
                             </h1>
-                            <p className="mx-auto mb-8 line-clamp-3 max-w-2xl text-lg text-neutral-700 md:text-xl dark:text-slate-300">
-                                {comic.synopsis}
-                            </p>
                             <div className="mb-6 flex flex-wrap justify-center gap-3">
                                 <Button className="flex transform items-center space-x-2 rounded-md border border-zinc-300 bg-zinc-200 px-6 py-3 text-black shadow-lg backdrop-blur transition-all hover:scale-105 hover:bg-zinc-300 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-white dark:hover:bg-zinc-800">
                                     <Heart size={20} className="text-red-700" />
@@ -96,15 +93,15 @@ function Show({ comic }: { comic: Comic }) {
                         <div className="mb-4 flex items-center justify-between">
                             <h2 className="flex items-center text-2xl font-medium md:text-3xl">
                                 <Book className="mr-3 text-zinc-500" size={24} />
-                                <span className="relative">
-                                    Synopsis
-                                    <span className="absolute -bottom-1 left-0 w-0 bg-zinc-500"></span>
-                                </span>
+                                <span className="relative">Synopsis</span>
                             </h2>
                         </div>
 
                         <div className="rounded-lg border border-zinc-300 bg-zinc-100 p-6 shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
-                            <p className="text-lg leading-relaxed text-neutral-800 dark:text-slate-300">{comic.synopsis}</p>
+                            <p
+                                className="wysiwyg-output mx-auto mb-8 line-clamp-3 max-w-2xl text-lg text-neutral-700 md:text-xl dark:text-slate-300"
+                                dangerouslySetInnerHTML={{ __html: comic.synopsis }}
+                            ></p>{' '}
                         </div>
                     </section>
 

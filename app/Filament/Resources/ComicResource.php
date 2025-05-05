@@ -55,6 +55,7 @@ class ComicResource extends Resource
                         'h4',
                         'h5',
                         'h6',
+                        'bulletedList',
                         'indent',
                         'link',
                         'orderedList',
