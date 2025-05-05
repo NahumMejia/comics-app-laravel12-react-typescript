@@ -50,18 +50,22 @@ export type Comic = {
     cover: string;
     authors: {
         id: number;
+        slug: string;
         name: string;
     }[];
     category: {
         id: number;
+        slug: string;
         name: string;
     };
     characters: {
         id: number;
+        slug: string;
         name: string;
     }[];
     tags: {
         id: number;
+        slug: string;
         name: string;
     }[];
     pages: Page[];

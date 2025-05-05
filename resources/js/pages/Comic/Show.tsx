@@ -1,7 +1,7 @@
 import AppLayout from '@/layouts/app-layout';
 import { Comic, type BreadcrumbItem } from '@/types';
 import { Button } from '@headlessui/react';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { Book, ChevronUp, Eye, Heart, Tag, UserPlus, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -101,10 +101,9 @@ function Show({ comic }: { comic: Comic }) {
                             <p
                                 className="wysiwyg-output mx-auto mb-8 line-clamp-3 max-w-2xl text-lg text-neutral-700 md:text-xl dark:text-slate-300"
                                 dangerouslySetInnerHTML={{ __html: comic.synopsis }}
-                            ></p>{' '}
+                            ></p>
                         </div>
                     </section>
-
                     {/* Comic Pages Section */}
                     <section id="pages" className="mb-16">
                         <h2 className="group mb-6 flex items-center text-2xl font-medium md:text-3xl">
@@ -161,12 +160,13 @@ function Show({ comic }: { comic: Comic }) {
                                 </h3>
                                 <div className="flex flex-wrap gap-2">
                                     {comic.tags.map((tag) => (
-                                        <div
+                                        <Link
+                                            href={`/tags/${tag.slug}`}
                                             key={tag.id}
                                             className="text-md rounded-md border border-zinc-300 bg-zinc-100 px-4 py-2 text-black hover:bg-zinc-200 dark:border-zinc-800 dark:bg-zinc-900 dark:text-white dark:hover:bg-zinc-800"
                                         >
                                             {tag.name}
-                                        </div>
+                                        </Link>
                                     ))}
                                 </div>
                             </div>
