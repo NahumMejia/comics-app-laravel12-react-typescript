@@ -44,39 +44,38 @@ function Show({ comic }: { comic: Comic }) {
             behavior: 'smooth',
         });
     };
-
     return (
         <AppLayout breadcrumbs={breadcrumbs.map((b) => (b.title === 'Comics' ? b : { ...b, title: comic.title, href: `/${comic.slug}` }))}>
             <Head title={comic.title} />
-            <div className="bg-white dark:bg-black min-h-screen text-neutral-900 dark:text-slate-200 transition-colors duration-300">
+            <div className="min-h-screen bg-white text-neutral-900 transition-colors duration-300 dark:bg-black dark:text-slate-200">
                 {/* Hero Section */}
-                <div className="relative h-80 md:h-screen overflow-hidden">
+                <div className="relative h-80 overflow-hidden md:h-screen">
                     {comic.pages.length > 0 && (
                         <div className="absolute inset-0">
                             <img
                                 src={comic.pages[0].url}
                                 alt={comic.title}
-                                className="opacity-20 w-full h-full object-cover"
+                                className="h-full w-full object-cover opacity-20"
                                 onLoad={handleImageLoad}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-black via-white/70 dark:via-black/70 to-transparent" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/70 to-transparent dark:from-black dark:via-black/70" />
                         </div>
                     )}
-                    <div className="absolute inset-0 flex flex-col justify-center items-center p-6 text-center">
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
                         <div className="max-w-4xl">
-                            <h1 className="mb-4 font-bold text-black dark:text-white text-4xl md:text-6xl lg:text-7xl tracking-tight">
+                            <h1 className="mb-4 text-4xl font-bold tracking-tight text-black md:text-6xl lg:text-7xl dark:text-white">
                                 {comic.title}
                             </h1>
-                            <p className="mx-auto mb-8 max-w-2xl text-neutral-700 dark:text-slate-300 text-lg md:text-xl line-clamp-3">
+                            <p className="mx-auto mb-8 line-clamp-3 max-w-2xl text-lg text-neutral-700 md:text-xl dark:text-slate-300">
                                 {comic.synopsis}
                             </p>
-                            <div className="flex flex-wrap justify-center gap-3 mb-6">
-                                <Button className="flex items-center space-x-2 bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-900/70 dark:hover:bg-zinc-800 shadow-lg backdrop-blur px-6 py-3 border border-zinc-300 dark:border-zinc-700 rounded-md text-black dark:text-white hover:scale-105 transition-all transform">
+                            <div className="mb-6 flex flex-wrap justify-center gap-3">
+                                <Button className="flex transform items-center space-x-2 rounded-md border border-zinc-300 bg-zinc-200 px-6 py-3 text-black shadow-lg backdrop-blur transition-all hover:scale-105 hover:bg-zinc-300 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-white dark:hover:bg-zinc-800">
                                     <Heart size={20} className="text-red-700" />
                                     <span>Favorite</span>
                                 </Button>
                             </div>
-                            <div className="flex flex-wrap justify-center items-center gap-6 text-neutral-600 dark:text-slate-400 text-sm">
+                            <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-neutral-600 dark:text-slate-400">
                                 <div className="flex items-center gap-1">
                                     <Book size={16} />
                                     <span>{comic.pages.length} Pages</span>
@@ -88,44 +87,44 @@ function Show({ comic }: { comic: Comic }) {
                             </div>
                         </div>
                     </div>
-                    <div className="bottom-0 left-0 absolute bg-gradient-to-t from-white dark:from-black to-transparent w-full h-24"></div>
+                    <div className="absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from-white to-transparent dark:from-black"></div>
                 </div>
 
-                <div className="relative mx-auto px-4 py-8 max-w-6xl">
+                <div className="relative mx-auto max-w-6xl px-4 py-8">
                     {/* Synopsis Section */}
                     <section id="synopsis" className="group mb-12">
-                        <div className="flex justify-between items-center mb-4">
-                            <h2 className="flex items-center font-medium text-2xl md:text-3xl">
+                        <div className="mb-4 flex items-center justify-between">
+                            <h2 className="flex items-center text-2xl font-medium md:text-3xl">
                                 <Book className="mr-3 text-zinc-500" size={24} />
                                 <span className="relative">
                                     Synopsis
-                                    <span className="-bottom-1 left-0 absolute bg-zinc-500 w-0"></span>
+                                    <span className="absolute -bottom-1 left-0 w-0 bg-zinc-500"></span>
                                 </span>
                             </h2>
                         </div>
 
-                        <div className="bg-zinc-100 dark:bg-zinc-900 shadow-lg p-6 border border-zinc-300 dark:border-zinc-800 rounded-lg">
-                            <p className="text-neutral-800 dark:text-slate-300 text-lg leading-relaxed">{comic.synopsis}</p>
+                        <div className="rounded-lg border border-zinc-300 bg-zinc-100 p-6 shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
+                            <p className="text-lg leading-relaxed text-neutral-800 dark:text-slate-300">{comic.synopsis}</p>
                         </div>
                     </section>
 
                     {/* Comic Pages Section */}
                     <section id="pages" className="mb-16">
-                        <h2 className="group flex items-center mb-6 font-medium text-2xl md:text-3xl">
+                        <h2 className="group mb-6 flex items-center text-2xl font-medium md:text-3xl">
                             <Eye className="mr-3 text-zinc-500" size={24} />
                             <span className="relative">
                                 Comic Pages
-                                <span className="-bottom-1 left-0 absolute bg-zinc-500 w-0"></span>
+                                <span className="absolute -bottom-1 left-0 w-0 bg-zinc-500"></span>
                             </span>
                         </h2>
 
                         <div className="space-y-8">
                             {comic.pages.map((page, index) => (
-                                <div key={index} className="bg-zinc-100 dark:bg-zinc-900 shadow-xl hover:shadow-2xl border overflow-hidden">
+                                <div key={index} className="overflow-hidden border bg-zinc-100 shadow-xl hover:shadow-2xl dark:bg-zinc-900">
                                     <img
                                         src={page.url}
                                         alt={page.name || `Comic page ${index + 1}`}
-                                        className="w-full h-auto"
+                                        className="h-auto w-full"
                                         onLoad={handleImageLoad}
                                         loading="lazy"
                                     />
@@ -137,37 +136,37 @@ function Show({ comic }: { comic: Comic }) {
                     {/* Footer Info Section */}
                     <section
                         id="info"
-                        className="bg-zinc-100 dark:bg-zinc-900 shadow-xl mt-16 p-8 border border-zinc-300 dark:border-zinc-800 rounded-lg"
+                        className="mt-16 rounded-lg border border-zinc-300 bg-zinc-100 p-8 shadow-xl dark:border-zinc-800 dark:bg-zinc-900"
                     >
-                        <h2 className="group flex items-center mb-8 font-medium text-2xl md:text-3xl">
+                        <h2 className="group mb-8 flex items-center text-2xl font-medium md:text-3xl">
                             <Tag className="mr-3 text-zinc-500" size={24} />
                             <span className="relative">
                                 Comic Information
-                                <span className="-bottom-1 left-0 absolute bg-zinc-500 w-0"></span>
+                                <span className="absolute -bottom-1 left-0 w-0 bg-zinc-500"></span>
                             </span>
                         </h2>
 
-                        <div className="gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
                             {/* Category Section */}
-                            <div className="bg-zinc-200 dark:bg-zinc-950 shadow-lg p-6 border border-zinc-300 dark:border-zinc-800 rounded-lg">
-                                <h3 className="flex items-center mb-4 pb-2 border-zinc-300 dark:border-zinc-800 border-b font-medium text-xl">
+                            <div className="rounded-lg border border-zinc-300 bg-zinc-200 p-6 shadow-lg dark:border-zinc-800 dark:bg-zinc-950">
+                                <h3 className="mb-4 flex items-center border-b border-zinc-300 pb-2 text-xl font-medium dark:border-zinc-800">
                                     <Tag className="mr-2 text-zinc-500" size={20} /> Category
                                 </h3>
-                                <div className="inline-block bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 px-4 py-2 border border-zinc-300 dark:border-zinc-800 rounded-md text-black dark:text-white text-lg">
+                                <div className="inline-block rounded-md border border-zinc-300 bg-zinc-100 px-4 py-2 text-lg text-black hover:bg-zinc-200 dark:border-zinc-800 dark:bg-zinc-900 dark:text-white dark:hover:bg-zinc-800">
                                     {comic.category.name}
                                 </div>
                             </div>
 
                             {/* Tags Section */}
-                            <div className="bg-zinc-200 dark:bg-zinc-950 shadow-lg p-6 border border-zinc-300 dark:border-zinc-800 rounded-lg">
-                                <h3 className="flex items-center mb-4 pb-2 border-zinc-300 dark:border-zinc-800 border-b font-medium text-xl">
+                            <div className="rounded-lg border border-zinc-300 bg-zinc-200 p-6 shadow-lg dark:border-zinc-800 dark:bg-zinc-950">
+                                <h3 className="mb-4 flex items-center border-b border-zinc-300 pb-2 text-xl font-medium dark:border-zinc-800">
                                     <Tag className="mr-2 text-zinc-500" size={20} /> Tags
                                 </h3>
                                 <div className="flex flex-wrap gap-2">
                                     {comic.tags.map((tag) => (
                                         <div
                                             key={tag.id}
-                                            className="bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 px-4 py-2 border border-zinc-300 dark:border-zinc-800 rounded-md text-black text-md dark:text-white"
+                                            className="text-md rounded-md border border-zinc-300 bg-zinc-100 px-4 py-2 text-black hover:bg-zinc-200 dark:border-zinc-800 dark:bg-zinc-900 dark:text-white dark:hover:bg-zinc-800"
                                         >
                                             {tag.name}
                                         </div>
@@ -176,15 +175,15 @@ function Show({ comic }: { comic: Comic }) {
                             </div>
 
                             {/* Characters Section */}
-                            <div className="bg-zinc-200 dark:bg-zinc-950 shadow-lg p-6 border border-zinc-300 dark:border-zinc-800 rounded-lg">
-                                <h3 className="flex items-center mb-4 pb-2 border-zinc-300 dark:border-zinc-800 border-b font-medium text-xl">
+                            <div className="rounded-lg border border-zinc-300 bg-zinc-200 p-6 shadow-lg dark:border-zinc-800 dark:bg-zinc-950">
+                                <h3 className="mb-4 flex items-center border-b border-zinc-300 pb-2 text-xl font-medium dark:border-zinc-800">
                                     <UserPlus className="mr-2 text-zinc-500" size={20} /> Characters
                                 </h3>
                                 <div className="space-y-2">
                                     {comic.characters.map((character) => (
                                         <div
                                             key={character.id}
-                                            className="flex justify-between items-center bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 px-3 py-2 border border-zinc-300 dark:border-zinc-800 rounded-md transition-colors cursor-pointer"
+                                            className="flex cursor-pointer items-center justify-between rounded-md border border-zinc-300 bg-zinc-100 px-3 py-2 transition-colors hover:bg-zinc-200 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800"
                                         >
                                             <span>{character.name}</span>
                                         </div>
@@ -193,17 +192,17 @@ function Show({ comic }: { comic: Comic }) {
                             </div>
 
                             {/* Authors Section */}
-                            <div className="bg-zinc-200 dark:bg-zinc-950 shadow-lg p-6 border border-zinc-300 dark:border-zinc-800 rounded-lg">
-                                <h3 className="flex items-center mb-4 pb-2 border-zinc-300 dark:border-zinc-800 border-b font-medium text-xl">
+                            <div className="rounded-lg border border-zinc-300 bg-zinc-200 p-6 shadow-lg dark:border-zinc-800 dark:bg-zinc-950">
+                                <h3 className="mb-4 flex items-center border-b border-zinc-300 pb-2 text-xl font-medium dark:border-zinc-800">
                                     <Users className="mr-2 text-zinc-500" size={20} /> Authors
                                 </h3>
                                 <div className="space-y-3">
                                     {comic.authors.map((author) => (
                                         <div
                                             key={author.id}
-                                            className="flex items-center bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 p-3 border border-zinc-300 dark:border-zinc-800 rounded-md hover:scale-[1.02] transition-all cursor-pointer transform"
+                                            className="flex transform cursor-pointer items-center rounded-md border border-zinc-300 bg-zinc-100 p-3 transition-all hover:scale-[1.02] hover:bg-zinc-200 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800"
                                         >
-                                            <div className="flex justify-center items-center bg-zinc-300 dark:bg-black mr-3 border border-zinc-400 dark:border-zinc-700 rounded-full w-10 h-10">
+                                            <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full border border-zinc-400 bg-zinc-300 dark:border-zinc-700 dark:bg-black">
                                                 {author.name.charAt(0)}
                                             </div>
                                             <div>
@@ -221,7 +220,7 @@ function Show({ comic }: { comic: Comic }) {
                 {showBackToTop && (
                     <Button
                         onClick={scrollToTop}
-                        className="right-8 bottom-8 z-50 fixed bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-900 dark:hover:bg-zinc-800 shadow-lg p-3 border border-zinc-300 dark:border-zinc-700 rounded-full text-black dark:text-white hover:scale-110 transition-all"
+                        className="fixed right-8 bottom-8 z-50 rounded-full border border-zinc-300 bg-zinc-200 p-3 text-black shadow-lg transition-all hover:scale-110 hover:bg-zinc-300 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white dark:hover:bg-zinc-800"
                     >
                         <ChevronUp size={20} />
                     </Button>

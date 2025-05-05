@@ -26,7 +26,7 @@ class ComicResource extends JsonResource
                 ];
             }),
             'cover' => $this->getFirstMediaUrl('cover'),
-            'pages' => $this->getMedia('images')->map(function ($media) {
+            'pages' => $this->getMedia('pages')->map(function ($media) {
                 return [
                     'url' => $media->getUrl(),
                     'name' => $media->name,
