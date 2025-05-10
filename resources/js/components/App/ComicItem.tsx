@@ -3,7 +3,6 @@ import type { Comic } from '@/types';
 import { Link } from '@inertiajs/react';
 
 function ComicItem({ comic }: { comic: Comic }) {
-    console.log(comic);
     return (
         <Card className="dark:bg-muted/30 hover:shadow-md dark:hover:shadow overflow-hidden transition-all duration-300">
             <Link href={route('comics.show', comic.slug)}>

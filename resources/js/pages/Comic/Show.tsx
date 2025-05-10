@@ -189,9 +189,11 @@ function Show({ comic }: { comic: Comic }) {
                                 </h3>
                                 <div className="space-y-3">
                                     {comic.authors.map((author) => (
-                                        <div
+                                        <Link
+                                            preserveScroll
                                             key={author.id}
                                             className="flex items-center bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 p-3 border border-zinc-300 dark:border-zinc-800 rounded-md hover:scale-[1.02] transition-all cursor-pointer transform"
+                                            href={`/authors/${author.slug}`}
                                         >
                                             <div className="flex justify-center items-center bg-zinc-300 dark:bg-black mr-3 border border-zinc-400 dark:border-zinc-700 rounded-full w-10 h-10">
                                                 {author.name.charAt(0)}
@@ -199,7 +201,7 @@ function Show({ comic }: { comic: Comic }) {
                                             <div>
                                                 <span className="block font-medium">{author.name}</span>
                                             </div>
-                                        </div>
+                                        </Link>
                                     ))}
                                 </div>
                             </div>
