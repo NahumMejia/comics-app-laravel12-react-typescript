@@ -64,20 +64,24 @@ class ComicResource extends Resource
                         'unorderedList',
                     ]),
                 Select::make('authors')
+                    ->required()
                     ->relationship('authors', 'name')
                     ->multiple()
                     ->preload()
                     ->label('Authors'),
                 Select::make('category_id')
+                    ->required()
                     ->relationship('category', 'name')
                     ->preload()
                     ->label('Category'),
                 Select::make('tags')
+                    ->required()
                     ->relationship('tags', 'name')
                     ->multiple()
                     ->preload()
                     ->label('Tags'),
                 Select::make('characters')
+                    ->required()
                     ->relationship('characters', 'name')
                     ->multiple()
                     ->preload()

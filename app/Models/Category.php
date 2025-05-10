@@ -9,4 +9,9 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Category extends Model implements HasMedia
 {
     use InteractsWithMedia;
+
+    public function comics()
+    {
+        return $this->hasMany(Comic::class);
+    }
 }

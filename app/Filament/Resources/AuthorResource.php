@@ -76,10 +76,6 @@ class AuthorResource extends Resource
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('bio')
-                    ->limit(50)
-                    ->wrap()
-                    ->html(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
