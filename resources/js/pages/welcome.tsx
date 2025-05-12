@@ -1,7 +1,7 @@
 import AppLayout from '@/layouts/app-layout';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
-import { Heart, Library, Search } from 'lucide-react';
+import { Eye, Heart, Search } from 'lucide-react';
 
 export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
@@ -32,14 +32,14 @@ export default function Welcome() {
                                 icon: Search,
                             },
                             {
-                                title: 'Like',
-                                description: 'Save your favorite comics.',
-                                icon: Heart,
+                                title: 'View',
+                                description: 'View the best comics in high quality.',
+                                icon: Eye,
                             },
                             {
-                                title: 'Collect',
-                                description: 'Organize your favorite comics into your personal collection.',
-                                icon: Library,
+                                title: 'Favorites',
+                                description: 'Save your favorite comics.',
+                                icon: Heart,
                             },
                         ].map((feature, i) => (
                             <div key={i} className="bg-white dark:bg-[#111] shadow-sm p-6 border border-[#eee] dark:border-[#222] rounded-lg">
@@ -76,7 +76,8 @@ export default function Welcome() {
                             <div className="z-10 relative">
                                 <h2 className="mb-3 font-bold text-2xl md:text-3xl">Ready to Start Your Comic Journey?</h2>
                                 <p className="opacity-90 mb-6 max-w-lg">
-                                    Join thousands of comic enthusiasts and discover your next favorite series today.
+                                    Join us today and explore a world of comics at your fingertips. Whether you are a casual reader or a hardcore fan,
+                                    we have something for everyone.
                                 </p>
                                 <Link
                                     href={auth.user ? route('dashboard') : route('register')}
