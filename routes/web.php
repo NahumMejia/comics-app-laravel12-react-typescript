@@ -20,6 +20,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('characters/{character:slug}', [CharacterController::class, 'show'])->name('characters.show');
     Route::get('categories/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
     Route::get('authors/{author:slug}', [AuthorController::class, 'show'])->name('authors.show');
+    Route::post('comics/{comic}/favorite', [ComicController::class, 'toggleFavorite'])->name('comics.favorite');
+    Route::get('favorites', [ComicController::class, 'favorites'])->name('favorites.show');
 });
 
 

@@ -2,6 +2,7 @@ import AppLayout from '@/layouts/app-layout';
 import { Comic, type BreadcrumbItem } from '@/types';
 import { Button } from '@headlessui/react';
 import { Head, Link } from '@inertiajs/react';
+import axios from 'axios';
 import { Book, ChevronUp, Eye, Heart, Tag, UserPlus, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -16,6 +17,16 @@ function Show({ comic }: { comic: Comic }) {
     const [showBackToTop, setShowBackToTop] = useState(false);
     const [currentImageLoaded, setCurrentImageLoaded] = useState(0);
     const [totalImagesLoaded, setTotalImagesLoaded] = useState(0);
+    const [isFavorited, setIsFavorited] = useState(comic.isFavorited || false);
+
+    const toggleFavorite = async () => {
+        try {
+            const response = await axios.post(route('comics.favorite', comic.id));
+            setIsFavorited(response.data.isFavorited);
+        } catch (error) {
+            console.error('Error toggling favorite:', error);
+        }
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -44,6 +55,7 @@ function Show({ comic }: { comic: Comic }) {
             behavior: 'smooth',
         });
     };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs.map((b) => (b.title === 'Comics' ? b : { ...b, title: comic.title, href: `/${comic.slug}` }))}>
             <Head title={comic.title} />
@@ -67,9 +79,14 @@ function Show({ comic }: { comic: Comic }) {
                                 {comic.title}
                             </h1>
                             <div className="flex flex-wrap justify-center gap-3 mb-6">
-                                <Button className="flex items-center space-x-2 bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-900/70 dark:hover:bg-zinc-800 shadow-lg backdrop-blur px-6 py-3 border border-zinc-300 dark:border-zinc-700 rounded-md text-black dark:text-white hover:scale-105 transition-all transform">
-                                    <Heart size={20} className="text-red-700" />
-                                    <span>Favorite</span>
+                                <Button
+                                    onClick={toggleFavorite}
+                                    className={`flex items-center space-x-2 ${
+                                        isFavorited ? 'bg-red-500 hover:bg-red-600' : 'bg-zinc-200 hover:bg-zinc-300'
+                                    } transform rounded-md border border-zinc-300 px-6 py-3 text-black shadow-lg backdrop-blur transition-all hover:scale-105 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-white dark:hover:bg-zinc-800`}
+                                >
+                                    <Heart size={20} className={isFavorited ? 'text-white' : 'text-red-700'} />
+                                    <span>{isFavorited ? 'Unfavorite' : 'Favorite'}</span>
                                 </Button>
                             </div>
                             <div className="flex flex-wrap justify-center items-center gap-6 text-neutral-600 dark:text-slate-400 text-sm">

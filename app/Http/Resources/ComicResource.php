@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class ComicResource extends JsonResource
 {
@@ -52,6 +53,7 @@ class ComicResource extends JsonResource
                     'name' => $character->name,
                 ];
             }),
+            'isFavorited' => Auth::check() && $this->favoritedByUsers->contains(Auth::user()->id),
         ];
     }
 }

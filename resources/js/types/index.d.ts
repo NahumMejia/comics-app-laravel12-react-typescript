@@ -69,6 +69,12 @@ export type Comic = {
         name: string;
     }[];
     pages: Page[];
+    isFavorited: boolean;
+    Favorite: {
+        id: number;
+        user_id: number;
+        comic_id: number;
+    };
 };
 
 type Page = {

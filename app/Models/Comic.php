@@ -34,4 +34,8 @@ class Comic extends Model implements HasMedia
         $this->addMediaCollection('cover')->useDisk('public')->singleFile();
         $this->addMediaCollection('pages')->useDisk('public');;
     }
+    public function favoritedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'comic_user', 'comic_id', 'user_id');
+    }
 }

@@ -46,4 +46,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function favoritedComics()
+    {
+        return $this->belongsToMany(Comic::class, 'comic_user', 'user_id', 'comic_id');
+    }
 }
